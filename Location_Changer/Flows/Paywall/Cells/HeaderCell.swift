@@ -55,9 +55,11 @@ final class HeaderCell: UICollectionViewCell {
         setupeSubview()
         subviewConstraint()
         conteinerView.backgroundColor = UIColor(named: "base_violet_color")
-//        if AppData.hasOnboardingCompleted == true {
-//            closeButton.isHidden = true
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            UIView.animate(withDuration: 0.3) { [weak self] in guard let self else { return }
+                closeButton.alpha = 1.0
+            }
+        }
     }
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -86,6 +88,7 @@ final class HeaderCell: UICollectionViewCell {
         conteinerView.addSubview(headerTitle)
         conteinerView.addSubview(descriptionTitle)
         conteinerView.addSubview(closeButton)
+        closeButton.alpha = 0.0
     }
     private func subviewConstraint() {
         conteinerView.snp.makeConstraints { make in
